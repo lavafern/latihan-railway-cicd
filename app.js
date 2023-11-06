@@ -49,7 +49,7 @@ app.use(function onError(err, req, res, next) {
     res.json({
         status : "error",
         message : err.message,
-        data : Rail.env
+        data : RAILWAY_ENVIRONMENT_NAME
     });
   });
 app.listen(PORT,() => console.log("listening to port",PORT))
