@@ -2,11 +2,11 @@ require("dotenv").config()
 const express = require("express")
 const app = express()
 const Sentry = require("@sentry/node")
-const {PORT,SENTRY_DSN } = process.env
+const {PORT,SENTRY_DSN,RAILWAY_ENVIRONMENT_NAME } = process.env
 
 Sentry.init({
     dsn: SENTRY_DSN,
-    environment : 'development',
+    environment : RAILWAY_ENVIRONMENT_NAME,
     integrations: [
       // enable HTTP calls tracing
       new Sentry.Integrations.Http({ tracing: true }),
@@ -48,7 +48,8 @@ app.use(function onError(err, req, res, next) {
     res.statusCode = 500;
     res.json({
         status : "error",
-        message : err.message
+        message : err.message,
+        data : Rail.env
     });
   });
 app.listen(PORT,() => console.log("listening to port",PORT))
