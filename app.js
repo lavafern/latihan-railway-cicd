@@ -6,6 +6,7 @@ const {PORT,SENTRY_DSN } = process.env
 
 Sentry.init({
     dsn: SENTRY_DSN,
+    environment : 'development',
     integrations: [
       // enable HTTP calls tracing
       new Sentry.Integrations.Http({ tracing: true }),
